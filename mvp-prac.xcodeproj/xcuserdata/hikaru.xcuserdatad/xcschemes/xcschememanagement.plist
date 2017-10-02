@@ -7,7 +7,25 @@
 		<key>mvp-prac.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>17FF03A21F7BF2080010FF72</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>17FF03B61F7BF2080010FF72</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>17FF03C11F7BF2080010FF72</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
