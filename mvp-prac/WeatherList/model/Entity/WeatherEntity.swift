@@ -9,16 +9,20 @@
 import Foundation
 
 protocol WeatherEntityProtocol {
-    init(dateString: String, weather: String)
-    
+    // MARK: properties
     var dateString: String { get }
     var weather: String { get }
+    
+    // MARK: init
+    init(dateString: String, weather: String)
 }
 
 struct WeatherEntity: WeatherEntityProtocol {
+    // MARK: properties
     var dateString: String
     let weather: String
     
+    // MARK: init
     init(dateString: String, weather: String) {
         self.dateString = dateString
         self.weather = weather

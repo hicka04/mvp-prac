@@ -8,20 +8,23 @@
 
 import UIKit
 
+// MARK: -
 protocol WeatherListViewProtocol: class {
+    // MARK: methods
     func reloadData()
     func navigateDetail(entity: WeatherEntityProtocol)
 }
 
+// MARK: -
 class WeatherListViewController: UIViewController {
-    // MARK: - properties
+    // MARK: properties
     @IBOutlet private var tableView: UITableView!
     
     private let CELL_IDENTIFIER = "cell"
     
     var presenter: WeatherListViewPresenter!
     
-    // MARK: - methods
+    // MARK: methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +61,7 @@ class WeatherListViewController: UIViewController {
     }
 }
 
+// MARK: - protocol methods
 extension WeatherListViewController: WeatherListViewProtocol {
     func reloadData() {
         tableView.refreshControl?.endRefreshing()

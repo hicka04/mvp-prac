@@ -8,22 +8,14 @@
 
 import UIKit
 
+// MARK: -
 class WeatherViewCell: UITableViewCell {
     
+    // MARK: properties
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var weatherLabel: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    // MARK: methods
     func setWeather(entity: WeatherEntityProtocol) {
         dateLabel.text = entity.dateString
         weatherLabel.text = entity.weather

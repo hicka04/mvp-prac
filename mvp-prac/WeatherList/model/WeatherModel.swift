@@ -10,22 +10,34 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-protocol WeatherModelProtocol: class {
-    var notificationName: Notification.Name { get }
+// MARK: -
+protocol WeatherModelNotify: class {
+    // MARK: methods
+    func addObserver(_ observer: Any, selector: Selector)
+    func removeObserver(_ observer: Any)
+}
+
+// MARK: -
+protocol WeatherModelProtocol: class, WeatherModelNotify {
+    // MARK: properties
     var weathers: [WeatherEntityProtocol] { get }
     
+    // MARK: methods
     func getWeathers()
     func resetWeathers()
 }
 
+// MARK: -
 class WeatherModel: WeatherModelProtocol {
+    // MARK: properties
     static let shared = WeatherModel()
-    let notificationName = Notification.Name(rawValue: "weathers")
     private(set) var weathers: [WeatherEntityProtocol] = []
     private let url = API.url
     
+    // MARK: init
     private init() { }
     
+    // MARK: methods
     func resetWeathers() {
         weathers = []
         
@@ -46,7 +58,27 @@ class WeatherModel: WeatherModelProtocol {
             self.notify()
         }
     }
-    
+}
+
+// MARK: - notify
+extension WeatherModel: WeatherModelNotify {
+    // MARK: properties
+    var notificationName: Notification.Name {
+        return Notification.Name(rawValue: "weathers")
+    }
+
+    // MARK: methods
+    func addObserver(_ observer: Any, selector: Selector) {
+        NotificationCenter.default.addObserver(observer,
+                                               selector: selector,
+                                               name: notificationName,
+                                               object: nil)
+    }
+
+    func removeObserver(_ observer: Any) {
+        NotificationCenter.default.removeObserver(observer)
+    }
+
     func notify() {
         NotificationCenter.default.post(name: notificationName, object: nil)
     }

@@ -8,39 +8,41 @@
 
 import Foundation
 
+// MARK: -
 protocol WeatherListViewPresenterProtocol: class {
-    // MARK: - properties
+    // MARK: properties
     var numberOfWeathers: Int { get }
     
-    // MARK: - init
+    // MARK: init
     init(view: WeatherListViewProtocol)
     
-    // MARK: - methods
+    // MARK: methods
     func updateWeathers()
     func entity(at: IndexPath) -> WeatherEntityProtocol
     func didSelectRow(at indexPath: IndexPath)
 }
 
+// MARK: -
 class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
-    // MARK: - properties
+    // MARK: properties
     let view: WeatherListViewProtocol
     let model: WeatherModelProtocol
     var numberOfWeathers: Int {
         return model.weathers.count
     }
     
-    // MARK: - init/deinit
+    // MARK: init/deinit
     required init(view: WeatherListViewProtocol) {
         self.view = view
-        self.model = WeatherModel.shared
-        addObserver()
+        model = WeatherModel.shared
+        model.addObserver(self, selector: #selector(self.updated))
     }
     
     deinit {
-        removeObserver()
+        model.removeObserver(self)
     }
     
-    // MARK: - methods
+    // MARK: methods
     func updateWeathers() {
         model.resetWeathers()
         // api request
@@ -53,20 +55,6 @@ class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
     
     func didSelectRow(at indexPath: IndexPath) {
         view.navigateDetail(entity: model.weathers[indexPath.row])
-    }
-}
-
-// MARK: - Notification
-extension WeatherListViewPresenter {
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.updated),
-                                               name: model.notificationName,
-                                               object: nil)
-    }
-    
-    private func removeObserver() {
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc private func updated() {
