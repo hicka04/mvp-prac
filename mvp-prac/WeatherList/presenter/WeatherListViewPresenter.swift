@@ -27,7 +27,7 @@ protocol WeatherListViewPresenterProtocol: class {
 class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
     // MARK: properties
     private weak var view: WeatherListViewProtocol?
-    private let model: WeatherModelProtocol
+     let model: WeatherModelProtocol
     var numberOfWeathers: Int {
         return model.weathers.count
     }

@@ -1,4 +1,11 @@
 //
+//  WeatherModelMock.swift
+//  mvp-pracTests
+//
+//  Created by HikaruSato on 2017/10/05.
+//  Copyright © 2017年 HikaruSato. All rights reserved.
+//
+//
 //  WeatherModel.swift
 //  mvp-prac
 //
@@ -7,31 +14,14 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 // MARK: -
-protocol WeatherModelNotify: class {
-    // MARK: methods
-    func addObserver(_ observer: Any, selector: Selector)
-    func removeObserver(_ observer: Any)
-}
-
-// MARK: -
-protocol WeatherModelProtocol: class, WeatherModelNotify {
-    // MARK: properties
-    var weathers: [WeatherEntityProtocol] { get }
+class WeatherModelMock: WeatherModelProtocol {
     
-    // MARK: methods
-    func getWeathers()
-    func resetWeathers()
-}
-
-// MARK: -
-class WeatherModel: WeatherModelProtocol {
     // MARK: properties
-    static let shared = WeatherModel()
+    static let shared = WeatherModelMock()
     private(set) var weathers: [WeatherEntityProtocol] = []
-    private let url = API.url
+//    private let url = API.url
     
     // MARK: init
     private init() { }
@@ -44,28 +34,22 @@ class WeatherModel: WeatherModelProtocol {
     }
     
     func getWeathers() {
-        // api request...
-        API.getWeathers { (json) in
-            if let jsonArray = json["list"].array {
-                jsonArray.forEach({ (data) in
-                    let dt = data["dt_txt"].string!
-                    let weather = data["weather"][0]["main"].string!
-                    self.weathers.append(WeatherEntity(dateString: dt, weather: weather))
-                })
-                
-                self.notify()
-            }
-        }
+        self.weathers.append(WeatherEntity(dateString: "2017-10-07 00:00:00", weather: "Sunny"))
+        self.weathers.append(WeatherEntity(dateString: "2017-10-07 03:00:00", weather: "Rainy"))
+        self.weathers.append(WeatherEntity(dateString: "2017-10-07 06:00:00", weather: "Cloudy"))
+        self.weathers.append(WeatherEntity(dateString: "2017-10-07 09:00:00", weather: "Sunny"))
+        
+        self.notify()
     }
 }
 
 // MARK: - notify
-extension WeatherModel: WeatherModelNotify {
+extension WeatherModelMock: WeatherModelNotify {
     // MARK: properties
     var notificationName: Notification.Name {
         return Notification.Name(rawValue: "weathers")
     }
-
+    
     // MARK: methods
     func addObserver(_ observer: Any, selector: Selector) {
         NotificationCenter.default.addObserver(observer,
@@ -73,11 +57,11 @@ extension WeatherModel: WeatherModelNotify {
                                                name: notificationName,
                                                object: nil)
     }
-
+    
     func removeObserver(_ observer: Any) {
         NotificationCenter.default.removeObserver(observer)
     }
-
+    
     func notify() {
         NotificationCenter.default.post(name: notificationName, object: nil)
     }
