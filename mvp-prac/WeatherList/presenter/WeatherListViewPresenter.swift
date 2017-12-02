@@ -14,10 +14,9 @@ protocol WeatherListViewPresenterProtocol: class {
     var numberOfWeathers: Int { get }
     
     // MARK: init
-    init(model: WeatherModelProtocol)
+    init(view: WeatherListViewProtocol)
     
     // MARK: methods
-    func attachView(view: WeatherListViewProtocol)
     func updateWeathers()
     func entity(at: IndexPath) -> WeatherEntityProtocol
     func didSelectRow(at indexPath: IndexPath)
@@ -26,15 +25,16 @@ protocol WeatherListViewPresenterProtocol: class {
 // MARK: -
 class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
     // MARK: properties
-    private weak var view: WeatherListViewProtocol?
-     let model: WeatherModelProtocol
+    private let view: WeatherListViewProtocol
+    private let model: WeatherModelProtocol
     var numberOfWeathers: Int {
         return model.weathers.count
     }
     
     // MARK: init/deinit
-    required init(model: WeatherModelProtocol) {
-        self.model = model
+    required init(view: WeatherListViewProtocol) {
+        self.view = view
+        self.model = WeatherModel(api: WeatherRESTAPI.shared)
         model.addObserver(self, selector: #selector(self.updated))
     }
     
@@ -43,14 +43,11 @@ class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
     }
     
     // MARK: methods
-    func attachView(view: WeatherListViewProtocol) {
-        self.view = view
-    }
     
     func updateWeathers() {
         model.resetWeathers()
         // api request
-        model.getWeathers()
+        model.fetchWeathers()
     }
     
     func entity(at indexPath: IndexPath) -> WeatherEntityProtocol {
@@ -58,10 +55,10 @@ class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
     }
     
     func didSelectRow(at indexPath: IndexPath) {
-        view?.navigateDetail(entity: model.weathers[indexPath.row])
+        view.navigateDetail(entity: model.weathers[indexPath.row])
     }
     
     @objc private func updated() {
-        view?.reloadData()
+        view.reloadData()
     }
 }

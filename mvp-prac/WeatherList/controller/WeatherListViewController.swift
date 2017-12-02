@@ -22,24 +22,13 @@ class WeatherListViewController: UIViewController {
     
     private let CELL_IDENTIFIER = "cell"
     
-    let presenter: WeatherListViewPresenter
-    
-    // MARK: init/deinit
-    init(presenter: WeatherListViewPresenter) {
-        self.presenter = presenter
-        
-        super.init(nibName: "WeatherListViewController", bundle: nil)
-        
-        self.presenter.attachView(view: self)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var presenter: WeatherListViewPresenter!
     
     // MARK: methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = WeatherListViewPresenter(view: self)
 
         // setup tableview
         tableView.delegate = self

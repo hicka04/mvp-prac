@@ -9,14 +9,21 @@
 import Foundation
 
 protocol WeatherDetailViewPresenterProtocol {
+    var date: String { get }
+    var weather: String { get }
     // MARK: - init
     init(entity: WeatherEntityProtocol)
     // MARK: - methods
-    // TODO: Viewに表示したい内容を返すメソッド追加
 }
 
 class WeatherDetailViewPresenter: WeatherDetailViewPresenterProtocol {
     let entity: WeatherEntityProtocol
+    var date: String {
+        return entity.dateString
+    }
+    var weather: String {
+        return entity.weather
+    }
     
     required init(entity: WeatherEntityProtocol) {
         self.entity = entity

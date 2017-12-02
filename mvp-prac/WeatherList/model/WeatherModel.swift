@@ -17,24 +17,28 @@ protocol WeatherModelNotify: class {
 }
 
 // MARK: -
-protocol WeatherModelProtocol: class, WeatherModelNotify {
+protocol WeatherModelProtocol: WeatherModelNotify {
     // MARK: properties
     var weathers: [WeatherEntityProtocol] { get }
     
+    // MARK: init
+    init(api: WeatherAPI)
+    
     // MARK: methods
-    func getWeathers()
+    func fetchWeathers()
     func resetWeathers()
 }
 
 // MARK: -
 class WeatherModel: WeatherModelProtocol {
     // MARK: properties
-    static let shared = WeatherModel()
     private(set) var weathers: [WeatherEntityProtocol] = []
-    private let url = API.url
+    private let api: WeatherAPI
     
     // MARK: init
-    private init() { }
+    required init(api: WeatherAPI) {
+        self.api = api
+    }
     
     // MARK: methods
     func resetWeathers() {
@@ -43,9 +47,9 @@ class WeatherModel: WeatherModelProtocol {
         notify()
     }
     
-    func getWeathers() {
+    func fetchWeathers() {
         // api request...
-        API.getWeathers { (json) in
+        api.fetchWeathers { (json) in
             if let jsonArray = json["list"].array {
                 jsonArray.forEach({ (data) in
                     let dt = data["dt_txt"].string!

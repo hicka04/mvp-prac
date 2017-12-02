@@ -17,8 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let listViewPresenter = WeatherListViewPresenter(model: WeatherModel.shared)
-        let listViewController = WeatherListViewController(presenter: listViewPresenter)
+        let listViewController = WeatherListViewController()
         let navigationController = UINavigationController(rootViewController: listViewController)
         
         window?.rootViewController = navigationController

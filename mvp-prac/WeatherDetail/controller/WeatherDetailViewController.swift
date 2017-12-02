@@ -11,6 +11,8 @@ import UIKit
 class WeatherDetailViewController: UIViewController {
     
     let presenter: WeatherDetailViewPresenterProtocol
+    @IBOutlet private var dateLabel: UILabel!
+    @IBOutlet private var weatherLabel: UILabel!
     
     init(entity: WeatherEntityProtocol) {
         self.presenter = WeatherDetailViewPresenter(entity: entity)
@@ -25,7 +27,8 @@ class WeatherDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: presenterから表示に必要なデータをもらってViewにセットする
+        dateLabel.text = presenter.date
+        weatherLabel.text = presenter.weather
     }
 
     override func didReceiveMemoryWarning() {
