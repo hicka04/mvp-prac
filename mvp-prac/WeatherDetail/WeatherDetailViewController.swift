@@ -10,11 +10,11 @@ import UIKit
 
 class WeatherDetailViewController: UIViewController {
     
-    let presenter: WeatherDetailViewPresenterProtocol
+    let presenter: WeatherDetailViewEvent
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var weatherLabel: UILabel!
     
-    init(entity: WeatherEntityProtocol) {
+    init(entity: WeatherEntity) {
         self.presenter = WeatherDetailViewPresenter(entity: entity)
         
         super.init(nibName: "WeatherDetailViewController", bundle: nil)

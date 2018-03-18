@@ -9,10 +9,10 @@
 import UIKit
 
 // MARK: -
-protocol WeatherListViewProtocol: class {
+protocol WeatherListView: class {
     // MARK: methods
     func reloadData()
-    func navigateDetail(entity: WeatherEntityProtocol)
+    func navigateDetail(entity: WeatherEntity)
 }
 
 // MARK: -
@@ -61,14 +61,14 @@ class WeatherListViewController: UIViewController {
 }
 
 // MARK: - protocol methods
-extension WeatherListViewController: WeatherListViewProtocol {
+extension WeatherListViewController: WeatherListView {
     func reloadData() {
         tableView.refreshControl?.endRefreshing()
         
         tableView.reloadData()
     }
     
-    func navigateDetail(entity: WeatherEntityProtocol) {
+    func navigateDetail(entity: WeatherEntity) {
         let detailViewController = WeatherDetailViewController(entity: entity)
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }

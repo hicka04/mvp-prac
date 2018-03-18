@@ -17,9 +17,9 @@ protocol WeatherModelNotify: class {
 }
 
 // MARK: -
-protocol WeatherModelProtocol: WeatherModelNotify {
+protocol WeatherModelInterface: WeatherModelNotify {
     // MARK: properties
-    var weathers: [WeatherEntityProtocol] { get }
+    var weathers: [WeatherEntity] { get }
     
     // MARK: init
     init(api: WeatherAPI)
@@ -30,9 +30,9 @@ protocol WeatherModelProtocol: WeatherModelNotify {
 }
 
 // MARK: -
-class WeatherModel: WeatherModelProtocol {
+class WeatherModel: WeatherModelInterface {
     // MARK: properties
-    private(set) var weathers: [WeatherEntityProtocol] = []
+    private(set) var weathers: [WeatherEntity] = []
     private let api: WeatherAPI
     
     // MARK: init

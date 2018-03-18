@@ -8,16 +8,7 @@
 
 import Foundation
 
-protocol WeatherEntityProtocol {
-    // MARK: properties
-    var dateString: String { get }
-    var weather: String { get }
-    
-    // MARK: init
-    init(dateString: String, weather: String)
-}
-
-struct WeatherEntity: WeatherEntityProtocol {
+struct WeatherEntity {
     // MARK: properties
     var dateString: String
     let weather: String

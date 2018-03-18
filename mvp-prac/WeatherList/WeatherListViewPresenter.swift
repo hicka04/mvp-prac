@@ -9,32 +9,29 @@
 import Foundation
 
 // MARK: -
-protocol WeatherListViewPresenterProtocol: class {
+protocol WeatherListViewEvent: class {
     // MARK: properties
     var numberOfWeathers: Int { get }
     
-    // MARK: init
-    init(view: WeatherListViewProtocol)
-    
     // MARK: methods
     func updateWeathers()
-    func entity(at: IndexPath) -> WeatherEntityProtocol
+    func entity(at: IndexPath) -> WeatherEntity
     func didSelectRow(at indexPath: IndexPath)
 }
 
 // MARK: -
-class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
+class WeatherListViewPresenter: WeatherListViewEvent {
     // MARK: properties
-    private let view: WeatherListViewProtocol
-    private let model: WeatherModelProtocol
+    private let view: WeatherListView
+    private let model: WeatherModelInterface
     var numberOfWeathers: Int {
         return model.weathers.count
     }
     
     // MARK: init/deinit
-    required init(view: WeatherListViewProtocol) {
+    required init(view: WeatherListView) {
         self.view = view
-        self.model = WeatherModel(api: WeatherRESTAPI.shared)
+        self.model = WeatherModel(api: WeatherRESTAPI.shared())
         model.addObserver(self, selector: #selector(self.updated))
     }
     
@@ -50,7 +47,7 @@ class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
         model.fetchWeathers()
     }
     
-    func entity(at indexPath: IndexPath) -> WeatherEntityProtocol {
+    func entity(at indexPath: IndexPath) -> WeatherEntity {
         return model.weathers[indexPath.row]
     }
     
@@ -58,7 +55,7 @@ class WeatherListViewPresenter: WeatherListViewPresenterProtocol {
         view.navigateDetail(entity: model.weathers[indexPath.row])
     }
     
-    @objc private func updated() {
+    @objc func updated() {
         view.reloadData()
     }
 }

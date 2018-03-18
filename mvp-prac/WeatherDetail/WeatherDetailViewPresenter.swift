@@ -8,16 +8,16 @@
 
 import Foundation
 
-protocol WeatherDetailViewPresenterProtocol {
+protocol WeatherDetailViewEvent {
     var date: String { get }
     var weather: String { get }
     // MARK: - init
-    init(entity: WeatherEntityProtocol)
+    init(entity: WeatherEntity)
     // MARK: - methods
 }
 
-class WeatherDetailViewPresenter: WeatherDetailViewPresenterProtocol {
-    let entity: WeatherEntityProtocol
+class WeatherDetailViewPresenter: WeatherDetailViewEvent {
+    let entity: WeatherEntity
     var date: String {
         return entity.dateString
     }
@@ -25,7 +25,7 @@ class WeatherDetailViewPresenter: WeatherDetailViewPresenterProtocol {
         return entity.weather
     }
     
-    required init(entity: WeatherEntityProtocol) {
+    required init(entity: WeatherEntity) {
         self.entity = entity
     }
 }

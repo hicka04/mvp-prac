@@ -16,7 +16,7 @@ class WeatherViewCell: UITableViewCell {
     @IBOutlet private var weatherLabel: UILabel!
     
     // MARK: methods
-    func setWeather(entity: WeatherEntityProtocol) {
+    func setWeather(entity: WeatherEntity) {
         dateLabel.text = entity.dateString
         weatherLabel.text = entity.weather
     }

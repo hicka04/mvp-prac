@@ -56,7 +56,7 @@
 		1757221D1F88599D00EEFE13 /* Pods_mvp_prac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_mvp_prac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1757221E1F88599D00EEFE13 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1788592D1F8278000027D781 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		1788C3C71F7F7E6B00634638 /* WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherEntity.swift; path = "/Users/hikaru/Documents/src/mvp-prac/mvp-prac/WeatherList/model/entity/WeatherEntity.swift"; sourceTree = "<absolute>"; };
+		1788C3C71F7F7E6B00634638 /* WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherEntity.swift; path = "/Users/hikaru/Documents/src/mvp-prac/mvp-prac/WeatherList/WeatherEntity.swift"; sourceTree = "<absolute>"; };
 		1788C3C91F7F8D2B00634638 /* WeatherViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewCell.swift; sourceTree = "<group>"; };
 		1788C3CA1F7F8D2B00634638 /* WeatherViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherViewCell.xib; sourceTree = "<group>"; };
 		1788C3D01F813C0900634638 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
@@ -122,21 +122,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1788592C1F8277D20027D781 /* entity */ = {
-			isa = PBXGroup;
-			children = (
-				1788C3C71F7F7E6B00634638 /* WeatherEntity.swift */,
-			);
-			path = entity;
-			sourceTree = "<group>";
-		};
 		1788C3CD1F813AFE00634638 /* WeatherList */ = {
 			isa = PBXGroup;
 			children = (
-				17FF03DB1F7BF3EC0010FF72 /* presenter */,
-				17FF03DA1F7BF3E60010FF72 /* model */,
-				17FF03D91F7BF3DD0010FF72 /* view */,
-				17FF03D81F7BF3C90010FF72 /* controller */,
+				17FF03D41F7BF2A30010FF72 /* WeatherListViewController.swift */,
+				17FF03D51F7BF2A30010FF72 /* WeatherListViewController.xib */,
+				17FF03DC1F7BF7B20010FF72 /* WeatherListViewPresenter.swift */,
+				1788592D1F8278000027D781 /* WeatherModel.swift */,
+				1788C3C71F7F7E6B00634638 /* WeatherEntity.swift */,
+				1788C3C91F7F8D2B00634638 /* WeatherViewCell.swift */,
+				1788C3CA1F7F8D2B00634638 /* WeatherViewCell.xib */,
 			);
 			path = WeatherList;
 			sourceTree = "<group>";
@@ -144,27 +139,11 @@
 		1788C3CE1F813B8200634638 /* WeatherDetail */ = {
 			isa = PBXGroup;
 			children = (
-				1788C3D41F81EFD700634638 /* presenter */,
-				1788C3CF1F813B9600634638 /* controller */,
-			);
-			path = WeatherDetail;
-			sourceTree = "<group>";
-		};
-		1788C3CF1F813B9600634638 /* controller */ = {
-			isa = PBXGroup;
-			children = (
 				1788C3D01F813C0900634638 /* WeatherDetailViewController.swift */,
 				1788C3D11F813C0900634638 /* WeatherDetailViewController.xib */,
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		1788C3D41F81EFD700634638 /* presenter */ = {
-			isa = PBXGroup;
-			children = (
 				1788C3D51F82492D00634638 /* WeatherDetailViewPresenter.swift */,
 			);
-			path = presenter;
+			path = WeatherDetail;
 			sourceTree = "<group>";
 		};
 		17D195D91F8678300075F471 /* WeatherList */ = {
@@ -229,41 +208,6 @@
 				17FF03C81F7BF2080010FF72 /* Info.plist */,
 			);
 			path = "mvp-pracUITests";
-			sourceTree = "<group>";
-		};
-		17FF03D81F7BF3C90010FF72 /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				17FF03D41F7BF2A30010FF72 /* WeatherListViewController.swift */,
-				17FF03D51F7BF2A30010FF72 /* WeatherListViewController.xib */,
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		17FF03D91F7BF3DD0010FF72 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				1788C3C91F7F8D2B00634638 /* WeatherViewCell.swift */,
-				1788C3CA1F7F8D2B00634638 /* WeatherViewCell.xib */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		17FF03DA1F7BF3E60010FF72 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				1788592D1F8278000027D781 /* WeatherModel.swift */,
-				1788592C1F8277D20027D781 /* entity */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		17FF03DB1F7BF3EC0010FF72 /* presenter */ = {
-			isa = PBXGroup;
-			children = (
-				17FF03DC1F7BF7B20010FF72 /* WeatherListViewPresenter.swift */,
-			);
-			path = presenter;
 			sourceTree = "<group>";
 		};
 		385B219972FE4F261FD46205 /* Frameworks */ = {
