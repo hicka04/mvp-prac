@@ -22,17 +22,22 @@ class WeatherListViewController: UIViewController {
     
     private let CELL_IDENTIFIER = "cell"
     
-    private var presenter: WeatherListViewPresenter!
+    private var presenter: WeatherListViewPresentable!
+    
+    init(presenterType Presenter: WeatherListViewPresentable.Type) {
+        super.init(nibName: nil, bundle: nil)
+        self.presenter = Presenter.init(view: self, modelType: WeatherModel.self)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter = WeatherListViewPresenter(view: self)
 
         // setup tableview
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(self.updateWeathers), for: .valueChanged)
         tableView.register(UINib(nibName: "WeatherViewCell", bundle: nil), forCellReuseIdentifier: CELL_IDENTIFIER)
@@ -53,15 +58,11 @@ class WeatherListViewController: UIViewController {
         presenter.updateWeathers()
         tableView.refreshControl?.beginRefreshing()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
 // MARK: - protocol methods
 extension WeatherListViewController: WeatherListView {
+    
     func reloadData() {
         tableView.refreshControl?.endRefreshing()
         
@@ -76,6 +77,7 @@ extension WeatherListViewController: WeatherListView {
 
 // MARK: - tableview delegate datasource
 extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

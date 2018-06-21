@@ -9,7 +9,10 @@
 import Foundation
 
 // MARK: -
-protocol WeatherListViewEvent: class {
+protocol WeatherListViewPresentable: class {
+    // init
+    init(view: WeatherListView, modelType: WeatherModelInterface.Type)
+    
     // MARK: properties
     var numberOfWeathers: Int { get }
     
@@ -20,19 +23,19 @@ protocol WeatherListViewEvent: class {
 }
 
 // MARK: -
-class WeatherListViewPresenter: WeatherListViewEvent {
+class WeatherListViewPresenter: WeatherListViewPresentable {
     // MARK: properties
-    private let view: WeatherListView
+    private weak var view: WeatherListView?
     private let model: WeatherModelInterface
     var numberOfWeathers: Int {
         return model.weathers.count
     }
     
     // MARK: init/deinit
-    required init(view: WeatherListView) {
+    required init(view: WeatherListView, modelType Model: WeatherModelInterface.Type) {
         self.view = view
-        self.model = WeatherModel(api: WeatherRESTAPI.shared())
-        model.addObserver(self, selector: #selector(self.updated))
+        self.model = Model.init(api: WeatherRESTAPI.shared())
+        self.model.addObserver(self, selector: #selector(self.updated))
     }
     
     deinit {
@@ -52,10 +55,10 @@ class WeatherListViewPresenter: WeatherListViewEvent {
     }
     
     func didSelectRow(at indexPath: IndexPath) {
-        view.navigateDetail(entity: model.weathers[indexPath.row])
+        view?.navigateDetail(entity: model.weathers[indexPath.row])
     }
     
     @objc func updated() {
-        view.reloadData()
+        view?.reloadData()
     }
 }
